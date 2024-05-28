@@ -1,6 +1,14 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
+const bookSchema = new mongoose.Schema({
+  bookId: String,
+  authors: [String],
+  title: String,
+  description: String,
+  image: String
+});
+
 const userSchema = new mongoose.Schema({
   username: {
     type: String,
@@ -16,12 +24,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  savedBooks: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Book',
-    },
-  ],
+  savedBooks: [bookSchema],
 });
 
 userSchema.pre('save', async function (next) {
